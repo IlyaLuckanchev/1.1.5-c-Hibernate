@@ -3,10 +3,8 @@ package jm.task.core.jdbc.dao;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
@@ -17,7 +15,7 @@ private final Connection connection = Util.getConnection();
 
     public void createUsersTable() {
         try (Statement statement = connection.createStatement()) {
-            String sqlCommand = "CREATE TABLE IF NOT EXISTS Users (Id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(100), lastName VARCHAR(100), age INT)";
+            String sqlCommand = "CREATE TABLE IF NOT EXISTS Users (IdUsers INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(100), lastName VARCHAR(100), age INT)";
             statement.executeUpdate(sqlCommand);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -38,6 +36,14 @@ private final Connection connection = Util.getConnection();
             statement.executeUpdate(sqlCommand);
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            if(connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
     }
 
@@ -50,18 +56,75 @@ private final Connection connection = Util.getConnection();
             statement.executeUpdate(insertSQL);
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            if(connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
     }
 
     public void removeUserById(long id) {
-
+        String removeSQL = "DELETE FROM Users WHERE IdUsers = id";
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate(removeSQL);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if(connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
     }
 
     public List<User> getAllUsers() {
-        return null;
+        ArrayList<User> allUsers = new ArrayList<>();
+        String getAllUsers = "SELECT * FROM Users";
+        try (Statement statement = connection.createStatement()) {
+            ResultSet result = statement.executeQuery(getAllUsers);
+            while (result.next()) {
+                User user = new User();
+                user.setId(result.getLong(1));
+                user.setName(result.getString(2));
+                user.setLastName(result.getString(3));
+                user.setAge(result.getByte(4));
+                allUsers.add(user);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if(connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+        return allUsers;
     }
 
     public void cleanUsersTable() {
-
+        String clear = "TRUNCATE TABLE Users";
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate(clear);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if(connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
     }
 }
