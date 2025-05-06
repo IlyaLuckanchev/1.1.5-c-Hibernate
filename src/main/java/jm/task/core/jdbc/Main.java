@@ -15,6 +15,8 @@ public class Main {
     private static final User user3 = new User("Stanislav", "Ytukov", (byte) 36);
     private static final User user4 = new User("Oleg", "Mongol", (byte) 52);
 
+
+
     public static void main(String[] args) {
 
         userService.createUsersTable();
@@ -32,7 +34,6 @@ public class Main {
         userService.cleanUsersTable();
 
         userService.dropUsersTable();
-
     }
 
 }
