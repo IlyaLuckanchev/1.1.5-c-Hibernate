@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
-private final Connection connection = Util.getConnection();
+    private final Connection connection = Util.getConnection();
+
     public UserDaoJDBCImpl() {
 
     }
@@ -20,7 +21,7 @@ private final Connection connection = Util.getConnection();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            if(connection != null) {
+            if (connection != null) {
                 try {
                     connection.close();
                 } catch (SQLException e) {
@@ -37,7 +38,7 @@ private final Connection connection = Util.getConnection();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            if(connection != null) {
+            if (connection != null) {
                 try {
                     connection.close();
                 } catch (SQLException e) {
@@ -56,14 +57,6 @@ private final Connection connection = Util.getConnection();
             statement.executeUpdate(insertSQL);
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } finally {
-            if(connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
         }
     }
 
@@ -73,14 +66,6 @@ private final Connection connection = Util.getConnection();
             statement.executeUpdate(removeSQL);
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } finally {
-            if(connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
         }
     }
 
@@ -99,14 +84,6 @@ private final Connection connection = Util.getConnection();
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } finally {
-            if(connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
         }
         return allUsers;
     }
@@ -117,14 +94,6 @@ private final Connection connection = Util.getConnection();
             statement.executeUpdate(clear);
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } finally {
-            if(connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
         }
     }
 }
