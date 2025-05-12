@@ -16,7 +16,7 @@ public class Main {
 
 
     public static void main(String[] args) {
-        userService.createUsersTable();
+        //userService.createUsersTable();
 
         userService.saveUser(user1.getName(), user1.getLastName(), user1.getAge());
 
@@ -26,11 +26,11 @@ public class Main {
 
         userService.saveUser(user4.getName(), user4.getLastName(), user4.getAge());
 
-        userService.getAllUsers();
+       userService.getAllUsers();
 
         userService.removeUserById(1L);
 
-        //userService.cleanUsersTable();
+        userService.cleanUsersTable();
 
         //userService.dropUsersTable();
     }

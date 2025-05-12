@@ -7,7 +7,6 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 
-import java.sql.*;
 import java.util.Properties;
 
 public class Util {
@@ -35,12 +34,12 @@ public class Util {
 
             sessionFactory = configuration.buildSessionFactory(serviceRegistry);
         } catch (Exception e) {
-
             e.printStackTrace();
         }
         return sessionFactory;
-        }
 
     }
+
+}
 
 
