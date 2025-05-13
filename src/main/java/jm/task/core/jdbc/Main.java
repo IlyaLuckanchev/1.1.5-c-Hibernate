@@ -16,7 +16,7 @@ public class Main {
 
 
     public static void main(String[] args) {
-        //userService.createUsersTable();
+        userService.createUsersTable();
 
         userService.saveUser(user1.getName(), user1.getLastName(), user1.getAge());
 
@@ -32,7 +32,7 @@ public class Main {
 
         userService.cleanUsersTable();
 
-        //userService.dropUsersTable();
+        userService.dropUsersTable();
     }
 
 }
